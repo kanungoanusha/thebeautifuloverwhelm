@@ -1374,6 +1374,158 @@
         text-decoration: none;
         display: flex;
       }
+
+      /* =====================
+         MOBILE PANEL NAV
+         ===================== */
+      .mobile-nav {
+        display: none; /* hidden on desktop */
+      }
+      .swipe-hint {
+        display: none;
+      }
+
+      @media (max-width: 1023px) {
+        /* Scene = horizontal 2-panel slider */
+        .scene {
+          width: 200vw;
+          height: 100vh;
+          align-items: stretch;
+          transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+          will-change: transform;
+        }
+        .scene.panel-right {
+          transform: translateX(-50%);
+        }
+
+        /* Left panel: full viewport */
+        .left-panel {
+          width: 100vw;
+          min-height: 100vh;
+          flex-shrink: 0;
+        }
+        /* Extra bottom gap for nav bar */
+        .left-flip-scene {
+          inset: 0.75rem 0.75rem 4.75rem;
+        }
+
+        /* Right panel: visible + scrollable on mobile */
+        .right-panel {
+          display: flex;
+          width: 100vw;
+          min-height: 100vh;
+          flex-shrink: 0;
+          padding: 1.5rem 1.5rem 5.5rem;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+          gap: 1rem;
+        }
+        .right-content {
+          justify-content: flex-start;
+        }
+        .feature-section {
+          margin-top: 0;
+        }
+        .community-card {
+          width: 100%;
+          align-self: auto;
+        }
+
+        /* ── Bottom tab bar ── */
+        .mobile-nav {
+          display: flex;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 500;
+          padding: 0.35rem 1.25rem calc(0.35rem + env(safe-area-inset-bottom));
+          background: rgba(25, 10, 18, 0.6);
+          backdrop-filter: blur(32px);
+          -webkit-backdrop-filter: blur(32px);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 0 -6px 28px rgba(0, 0, 0, 0.25);
+          gap: 0.5rem;
+        }
+        .mobile-tab {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.18rem;
+          padding: 0.55rem 0.5rem 0.3rem;
+          border: none;
+          background: transparent;
+          color: rgba(255, 240, 230, 0.38);
+          font-family: "Poppins", sans-serif;
+          font-size: 0.6rem;
+          font-weight: 500;
+          letter-spacing: 0.05em;
+          cursor: pointer;
+          border-radius: 0.75rem;
+          transition: color 0.22s, background 0.22s;
+        }
+        .mobile-tab.active {
+          color: var(--text-primary);
+          background: rgba(255, 255, 255, 0.07);
+        }
+        .mobile-tab-icon {
+          font-size: 1.3rem;
+          line-height: 1;
+          transition: transform 0.22s;
+        }
+        .mobile-tab.active .mobile-tab-icon {
+          transform: scale(1.12);
+        }
+        .mobile-tab-dot {
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: var(--accent);
+          opacity: 0;
+          transition: opacity 0.22s;
+          margin-top: 1px;
+        }
+        .mobile-tab.active .mobile-tab-dot {
+          opacity: 1;
+        }
+
+        /* ── Swipe hint (auto-fades) ── */
+        .swipe-hint {
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+          position: fixed;
+          right: 1.2rem;
+          bottom: 4.8rem;
+          z-index: 400;
+          padding: 0.38rem 0.9rem;
+          border-radius: 9999px;
+          background: rgba(232, 165, 152, 0.16);
+          border: 1px solid rgba(232, 165, 152, 0.32);
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
+          color: rgba(255, 240, 230, 0.82);
+          font-family: "Poppins", sans-serif;
+          font-size: 0.62rem;
+          font-weight: 500;
+          letter-spacing: 0.06em;
+          pointer-events: none;
+          animation:
+            hintSlide 1.5s ease-in-out infinite,
+            hintFade 0.35s ease 3.8s forwards;
+        }
+        .swipe-hint.gone {
+          display: none;
+        }
+        @keyframes hintSlide {
+          0%, 100% { transform: translateX(0); }
+          50%       { transform: translateX(-7px); }
+        }
+        @keyframes hintFade {
+          to { opacity: 0; pointer-events: none; }
+        }
+      }
     </style>
   </head>
   <body>
@@ -1755,9 +1907,7 @@
                     ><!-- TODO: Ep.03 Spotify URL -->
                     <div class="ep-row-num">Ep. 03</div>
                     <div class="ep-row-content">
-                      <div class="ep-row-title">
-                        The <em>Greatest Gift</em>
-                      </div>
+                      <div class="ep-row-title">The <em>Greatest Gift</em></div>
                       <div class="ep-row-meta">Gratitude</div>
                     </div>
                     <div class="ep-row-play">
@@ -1861,7 +2011,7 @@
             <!-- TODO: Replace # with your Instagram URL -->
             <a
               class="icon-btn"
-              href="#"
+              href="https://www.instagram.com/_anusha_k7?igsh=MW1xOGsyNGt1cWl1Zw=="
               title="Instagram"
               aria-label="Instagram"
               target="_blank"
@@ -2178,6 +2328,26 @@
       </div>
     </div>
 
+    <!-- MOBILE BOTTOM NAV (hidden on desktop via CSS) -->
+    <div class="swipe-hint" id="swipeHint">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      swipe to explore
+    </div>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Section navigation">
+      <button class="mobile-tab active" id="tabHome" aria-label="Home">
+        <span class="mobile-tab-icon">🌸</span>
+        <span>Home</span>
+        <span class="mobile-tab-dot"></span>
+      </button>
+      <button class="mobile-tab" id="tabDiscover" aria-label="Community &amp; Episodes">
+        <span class="mobile-tab-icon">🎙️</span>
+        <span>Discover</span>
+        <span class="mobile-tab-dot"></span>
+      </button>
+    </nav>
+
     <script>
       // Fallback: if video fails to load, apply gradient background
       const video = document.querySelector(".video-bg video");
@@ -2240,6 +2410,61 @@
           if (this.getAttribute("href") === "#") e.preventDefault();
         });
       });
+
+      // ── Mobile panel navigation ──────────────────────────────
+      (function () {
+        var scene      = document.querySelector(".scene");
+        var tabHome    = document.getElementById("tabHome");
+        var tabDiscover= document.getElementById("tabDiscover");
+        var swipeHint  = document.getElementById("swipeHint");
+
+        function isMobile() { return window.innerWidth < 1024; }
+
+        function setPanel(panel) {
+          if (!isMobile()) return;
+          var goRight = panel === "right";
+          scene.classList.toggle("panel-right", goRight);
+          tabHome.classList.toggle("active", !goRight);
+          tabDiscover.classList.toggle("active", goRight);
+          swipeHint.classList.add("gone"); // hide hint on first interaction
+        }
+
+        tabHome.addEventListener("click", function () { setPanel("left"); });
+        tabDiscover.addEventListener("click", function () { setPanel("right"); });
+
+        // Auto-hide swipe hint after animation completes
+        setTimeout(function () { swipeHint.classList.add("gone"); }, 4400);
+
+        // Swipe detection
+        var txStart = 0, tyStart = 0, swipeOrigin = null;
+
+        document.addEventListener("touchstart", function (e) {
+          txStart = e.touches[0].clientX;
+          tyStart = e.touches[0].clientY;
+          swipeOrigin = e.target;
+        }, { passive: true });
+
+        document.addEventListener("touchend", function (e) {
+          if (!isMobile()) return;
+          // Don't hijack scroll inside episode lists
+          if (swipeOrigin && (
+            swipeOrigin.closest(".ep-back-list") ||
+            swipeOrigin.closest(".episodes-scroll")
+          )) return;
+
+          var dx = e.changedTouches[0].clientX - txStart;
+          var dy = e.changedTouches[0].clientY - tyStart;
+          // Only fire on clearly horizontal intent (≥ 55 px, more horizontal than vertical)
+          if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+            setPanel(dx < 0 ? "right" : "left");
+          }
+        }, { passive: true });
+
+        // Reset to home panel on resize to desktop
+        window.addEventListener("resize", function () {
+          if (!isMobile()) scene.classList.remove("panel-right");
+        });
+      })();
     </script>
   </body>
 </html>
