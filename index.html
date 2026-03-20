@@ -1415,7 +1415,7 @@
           width: 100vw;
           min-height: 100vh;
           flex-shrink: 0;
-          padding: 1.5rem 1.5rem calc(5.75rem + env(safe-area-inset-bottom));
+          padding: 1.5rem 1.5rem calc(7.75rem + env(safe-area-inset-bottom));
           overflow-y: auto;
           -webkit-overflow-scrolling: touch;
           gap: 1rem;
@@ -1464,7 +1464,9 @@
           letter-spacing: 0.04em;
           cursor: pointer;
           border-radius: 9999px;
-          transition: color 0.22s, background 0.22s;
+          transition:
+            color 0.22s,
+            background 0.22s;
           white-space: nowrap;
         }
         .mobile-tab.active {
@@ -1513,11 +1515,18 @@
           display: none;
         }
         @keyframes hintSlide {
-          0%, 100% { transform: translateX(0); }
-          50%       { transform: translateX(-6px); }
+          0%,
+          100% {
+            transform: translateX(0);
+          }
+          50% {
+            transform: translateX(-6px);
+          }
         }
         @keyframes hintFade {
-          to { opacity: 0; }
+          to {
+            opacity: 0;
+          }
         }
       }
     </style>
@@ -2324,8 +2333,17 @@
 
     <!-- MOBILE BOTTOM NAV (hidden on desktop via CSS) -->
     <div class="swipe-hint" id="swipeHint">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M15 18l-6-6 6-6"/>
+      <svg
+        width="13"
+        height="13"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M15 18l-6-6 6-6" />
       </svg>
       swipe to explore
     </div>
@@ -2335,7 +2353,11 @@
         <span>Home</span>
         <span class="mobile-tab-dot"></span>
       </button>
-      <button class="mobile-tab" id="tabDiscover" aria-label="Community &amp; Episodes">
+      <button
+        class="mobile-tab"
+        id="tabDiscover"
+        aria-label="Community &amp; Episodes"
+      >
         <span class="mobile-tab-icon">🎙️</span>
         <span>Discover</span>
         <span class="mobile-tab-dot"></span>
@@ -2354,13 +2376,15 @@
       }
 
       // ── Mobile panel helper (used by episode trigger below) ──
-      function isMobile() { return window.innerWidth < 1024; }
+      function isMobile() {
+        return window.innerWidth < 1024;
+      }
       function setPanel(panel) {
         if (!isMobile()) return;
-        var scene       = document.querySelector(".scene");
-        var tabHome     = document.getElementById("tabHome");
+        var scene = document.querySelector(".scene");
+        var tabHome = document.getElementById("tabHome");
         var tabDiscover = document.getElementById("tabDiscover");
-        var swipeHint   = document.getElementById("swipeHint");
+        var swipeHint = document.getElementById("swipeHint");
         var goRight = panel === "right";
         scene.classList.toggle("panel-right", goRight);
         tabHome.classList.toggle("active", !goRight);
@@ -2381,12 +2405,16 @@
           setTimeout(() => {
             isFlipping = true;
             leftFlipCard.classList.add("flipped");
-            setTimeout(() => { isFlipping = false; }, 750);
+            setTimeout(() => {
+              isFlipping = false;
+            }, 750);
           }, 300);
         } else {
           isFlipping = true;
           leftFlipCard.classList.toggle("flipped");
-          setTimeout(() => { isFlipping = false; }, 750);
+          setTimeout(() => {
+            isFlipping = false;
+          }, 750);
         }
       });
 
@@ -2430,44 +2458,63 @@
 
       // ── Mobile panel navigation ──────────────────────────────
       (function () {
-        var tabHome     = document.getElementById("tabHome");
+        var tabHome = document.getElementById("tabHome");
         var tabDiscover = document.getElementById("tabDiscover");
-        var swipeHint   = document.getElementById("swipeHint");
+        var swipeHint = document.getElementById("swipeHint");
 
-        tabHome.addEventListener("click", function () { setPanel("left"); });
-        tabDiscover.addEventListener("click", function () { setPanel("right"); });
+        tabHome.addEventListener("click", function () {
+          setPanel("left");
+        });
+        tabDiscover.addEventListener("click", function () {
+          setPanel("right");
+        });
 
         // Auto-hide swipe hint after animation completes
-        setTimeout(function () { if (swipeHint) swipeHint.classList.add("gone"); }, 4400);
+        setTimeout(function () {
+          if (swipeHint) swipeHint.classList.add("gone");
+        }, 4400);
 
         // Swipe detection
-        var txStart = 0, tyStart = 0, swipeOrigin = null;
+        var txStart = 0,
+          tyStart = 0,
+          swipeOrigin = null;
 
-        document.addEventListener("touchstart", function (e) {
-          txStart = e.touches[0].clientX;
-          tyStart = e.touches[0].clientY;
-          swipeOrigin = e.target;
-        }, { passive: true });
+        document.addEventListener(
+          "touchstart",
+          function (e) {
+            txStart = e.touches[0].clientX;
+            tyStart = e.touches[0].clientY;
+            swipeOrigin = e.target;
+          },
+          { passive: true },
+        );
 
-        document.addEventListener("touchend", function (e) {
-          if (!isMobile()) return;
-          // Don't hijack scroll inside episode lists
-          if (swipeOrigin && (
-            swipeOrigin.closest(".ep-back-list") ||
-            swipeOrigin.closest(".episodes-scroll")
-          )) return;
+        document.addEventListener(
+          "touchend",
+          function (e) {
+            if (!isMobile()) return;
+            // Don't hijack scroll inside episode lists
+            if (
+              swipeOrigin &&
+              (swipeOrigin.closest(".ep-back-list") ||
+                swipeOrigin.closest(".episodes-scroll"))
+            )
+              return;
 
-          var dx = e.changedTouches[0].clientX - txStart;
-          var dy = e.changedTouches[0].clientY - tyStart;
-          // Only fire on clearly horizontal intent (≥ 55 px, more horizontal than vertical)
-          if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-            setPanel(dx < 0 ? "right" : "left");
-          }
-        }, { passive: true });
+            var dx = e.changedTouches[0].clientX - txStart;
+            var dy = e.changedTouches[0].clientY - tyStart;
+            // Only fire on clearly horizontal intent (≥ 55 px, more horizontal than vertical)
+            if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+              setPanel(dx < 0 ? "right" : "left");
+            }
+          },
+          { passive: true },
+        );
 
         // Reset to home panel on resize to desktop
         window.addEventListener("resize", function () {
-          if (!isMobile()) document.querySelector(".scene").classList.remove("panel-right");
+          if (!isMobile())
+            document.querySelector(".scene").classList.remove("panel-right");
         });
       })();
     </script>
