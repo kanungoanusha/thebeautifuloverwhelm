@@ -1409,6 +1409,24 @@
           inset: 0.75rem 0.75rem 5.75rem;
         }
 
+        /* Make left panel front face scrollable on mobile.
+           height:100% on .left-inner locks it to fit-only — switching to
+           min-height lets content overflow so the front face can scroll. */
+        .left-flip-front {
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .left-flip-front::-webkit-scrollbar { display: none; }
+        .left-flip-front .left-inner {
+          height: auto;
+          min-height: 100%;
+        }
+        /* hero-center: natural height, not flex-grow, so it doesn't eat
+           all available space and push the bottom quote out of view */
+        .left-flip-front .hero-center {
+          flex: none;
+        }
+
         /* Right panel: visible + scrollable on mobile */
         .right-panel {
           display: flex;
