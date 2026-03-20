@@ -1406,7 +1406,7 @@
         }
         /* Extra bottom gap for floating nav */
         .left-flip-scene {
-          inset: 0.75rem 0.75rem 4.25rem;
+          inset: 0.75rem 0.75rem 5.75rem;
         }
 
         /* Right panel: visible + scrollable on mobile */
@@ -1415,7 +1415,7 @@
           width: 100vw;
           min-height: 100vh;
           flex-shrink: 0;
-          padding: 1.5rem 1.5rem calc(4.25rem + env(safe-area-inset-bottom));
+          padding: 1.5rem 1.5rem calc(5.75rem + env(safe-area-inset-bottom));
           overflow-y: auto;
           -webkit-overflow-scrolling: touch;
           gap: 1rem;
@@ -2353,6 +2353,21 @@
         // Local file — no src override needed
       }
 
+      // ── Mobile panel helper (used by episode trigger below) ──
+      function isMobile() { return window.innerWidth < 1024; }
+      function setPanel(panel) {
+        if (!isMobile()) return;
+        var scene       = document.querySelector(".scene");
+        var tabHome     = document.getElementById("tabHome");
+        var tabDiscover = document.getElementById("tabDiscover");
+        var swipeHint   = document.getElementById("swipeHint");
+        var goRight = panel === "right";
+        scene.classList.toggle("panel-right", goRight);
+        tabHome.classList.toggle("active", !goRight);
+        tabDiscover.classList.toggle("active", goRight);
+        if (swipeHint) swipeHint.classList.add("gone");
+      }
+
       // Episodes flip toggle
       const leftFlipCard = document.getElementById("leftFlipCard");
       const episodesTrigger = document.getElementById("episodesTrigger");
@@ -2360,11 +2375,19 @@
 
       episodesTrigger.addEventListener("click", () => {
         if (isFlipping) return;
-        isFlipping = true;
-        leftFlipCard.classList.toggle("flipped");
-        setTimeout(() => {
-          isFlipping = false;
-        }, 750);
+        if (isMobile()) {
+          // Slide to left panel first, then flip once panel lands
+          setPanel("left");
+          setTimeout(() => {
+            isFlipping = true;
+            leftFlipCard.classList.add("flipped");
+            setTimeout(() => { isFlipping = false; }, 750);
+          }, 300);
+        } else {
+          isFlipping = true;
+          leftFlipCard.classList.toggle("flipped");
+          setTimeout(() => { isFlipping = false; }, 750);
+        }
       });
 
       // About Us card toggle
@@ -2407,27 +2430,15 @@
 
       // ── Mobile panel navigation ──────────────────────────────
       (function () {
-        var scene      = document.querySelector(".scene");
-        var tabHome    = document.getElementById("tabHome");
-        var tabDiscover= document.getElementById("tabDiscover");
-        var swipeHint  = document.getElementById("swipeHint");
-
-        function isMobile() { return window.innerWidth < 1024; }
-
-        function setPanel(panel) {
-          if (!isMobile()) return;
-          var goRight = panel === "right";
-          scene.classList.toggle("panel-right", goRight);
-          tabHome.classList.toggle("active", !goRight);
-          tabDiscover.classList.toggle("active", goRight);
-          swipeHint.classList.add("gone"); // hide hint on first interaction
-        }
+        var tabHome     = document.getElementById("tabHome");
+        var tabDiscover = document.getElementById("tabDiscover");
+        var swipeHint   = document.getElementById("swipeHint");
 
         tabHome.addEventListener("click", function () { setPanel("left"); });
         tabDiscover.addEventListener("click", function () { setPanel("right"); });
 
         // Auto-hide swipe hint after animation completes
-        setTimeout(function () { swipeHint.classList.add("gone"); }, 4400);
+        setTimeout(function () { if (swipeHint) swipeHint.classList.add("gone"); }, 4400);
 
         // Swipe detection
         var txStart = 0, tyStart = 0, swipeOrigin = null;
@@ -2456,7 +2467,7 @@
 
         // Reset to home panel on resize to desktop
         window.addEventListener("resize", function () {
-          if (!isMobile()) scene.classList.remove("panel-right");
+          if (!isMobile()) document.querySelector(".scene").classList.remove("panel-right");
         });
       })();
     </script>
