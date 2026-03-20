@@ -963,6 +963,54 @@
           padding: 0.75rem 1.2rem;
           font-size: 0.82rem;
         }
+        /* Allow front face to scroll if content overflows on small phones */
+        .left-flip-front {
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .left-flip-front::-webkit-scrollbar {
+          display: none;
+        }
+        /* About overlay mobile fix */
+        .about-overlay {
+          padding: 1rem;
+          align-items: flex-end;
+        }
+        .about-card {
+          padding: 1.5rem 1.4rem 1.8rem;
+          border-radius: 1.5rem;
+          max-height: 92vh;
+        }
+        .bottom-quote {
+          padding: 0.75rem 0.5rem 0.2rem;
+        }
+        .brand-icon {
+          width: 50px;
+          height: 50px;
+          font-size: 1.5rem;
+        }
+      }
+      @media (max-width: 390px) {
+        .hero-h1 {
+          font-size: 1.75rem;
+        }
+        .hero-center {
+          gap: 0.85rem;
+          padding: 0.75rem 0.25rem 0.5rem;
+        }
+        .hero-desc {
+          font-size: 0.76rem;
+        }
+        .spotify-cta {
+          padding: 0.65rem 1rem;
+        }
+        nav {
+          padding: 0.25rem 0;
+        }
+        .pill {
+          font-size: 0.63rem;
+          padding: 0.25rem 0.65rem;
+        }
       }
 
       /* =====================
@@ -1462,7 +1510,7 @@
                     </div>
                   </div>
                   <span class="ep-count-badge" id="epCountBadge"
-                    >12 episodes</span
+                    >13 episodes</span
                   >
                 </div>
 
@@ -1481,9 +1529,9 @@
                     <div class="ep-row-num">Ep. 12</div>
                     <div class="ep-row-content">
                       <div class="ep-row-title">
-                        When you grieve your <em>old self</em>
+                        The Pause of the <em>Old Self</em>
                       </div>
-                      <div class="ep-row-meta">38 min · Matrescence</div>
+                      <div class="ep-row-meta">Matrescence</div>
                     </div>
                     <div class="ep-row-play">
                       <svg
@@ -1505,9 +1553,9 @@
                     <div class="ep-row-num">Ep. 11</div>
                     <div class="ep-row-content">
                       <div class="ep-row-title">
-                        The <em>invisible load</em> is real
+                        The Six <em>Percent Rule</em>
                       </div>
-                      <div class="ep-row-meta">42 min · Relationships</div>
+                      <div class="ep-row-meta">Relationships</div>
                     </div>
                     <div class="ep-row-play">
                       <svg
@@ -1529,9 +1577,9 @@
                     <div class="ep-row-num">Ep. 10</div>
                     <div class="ep-row-content">
                       <div class="ep-row-title">
-                        Sleep, <em>surrender</em>, survive
+                        Surrendering to <em>the Night</em>
                       </div>
-                      <div class="ep-row-meta">31 min · First Year</div>
+                      <div class="ep-row-meta">First Year</div>
                     </div>
                     <div class="ep-row-play">
                       <svg
@@ -1553,9 +1601,9 @@
                     <div class="ep-row-num">Ep. 09</div>
                     <div class="ep-row-content">
                       <div class="ep-row-title">
-                        Asking for help <em>without shame</em>
+                        The Myth of <em>Doing It All</em>
                       </div>
-                      <div class="ep-row-meta">45 min · Mental Health</div>
+                      <div class="ep-row-meta">Mental Health</div>
                     </div>
                     <div class="ep-row-play">
                       <svg
@@ -1577,9 +1625,9 @@
                     <div class="ep-row-num">Ep. 08</div>
                     <div class="ep-row-content">
                       <div class="ep-row-title">
-                        Your body is <em>not broken</em>
+                        The Making of a <em>Globetrotter</em>
                       </div>
-                      <div class="ep-row-meta">36 min · Postpartum</div>
+                      <div class="ep-row-meta">Identity</div>
                     </div>
                     <div class="ep-row-play">
                       <svg
@@ -1601,9 +1649,9 @@
                     <div class="ep-row-num">Ep. 07</div>
                     <div class="ep-row-content">
                       <div class="ep-row-title">
-                        The loneliness <em>no one talks about</em>
+                        Timetables and <em>Sunsets</em>
                       </div>
-                      <div class="ep-row-meta">40 min · Identity</div>
+                      <div class="ep-row-meta">Identity</div>
                     </div>
                     <div class="ep-row-play">
                       <svg
@@ -1625,9 +1673,9 @@
                     <div class="ep-row-num">Ep. 06</div>
                     <div class="ep-row-content">
                       <div class="ep-row-title">
-                        When you miss your <em>old life</em>
+                        Operation <em>Dhurandar</em>
                       </div>
-                      <div class="ep-row-meta">33 min · Matrescence</div>
+                      <div class="ep-row-meta">Adventure</div>
                     </div>
                     <div class="ep-row-play">
                       <svg
@@ -1649,9 +1697,9 @@
                     <div class="ep-row-num">Ep. 05</div>
                     <div class="ep-row-content">
                       <div class="ep-row-title">
-                        Rage, tears, and <em>3am feedings</em>
+                        The Mute Button <em>Guilt</em>
                       </div>
-                      <div class="ep-row-meta">28 min · First Year</div>
+                      <div class="ep-row-meta">Mental Health</div>
                     </div>
                     <div class="ep-row-play">
                       <svg
@@ -1673,9 +1721,9 @@
                     <div class="ep-row-num">Ep. 04</div>
                     <div class="ep-row-content">
                       <div class="ep-row-title">
-                        What nobody told me about <em>birth</em>
+                        The Swiss Alps <em>Daydream</em>
                       </div>
-                      <div class="ep-row-meta">52 min · Birth Story</div>
+                      <div class="ep-row-meta">Wanderlust</div>
                     </div>
                     <div class="ep-row-play">
                       <svg
@@ -1697,9 +1745,9 @@
                     <div class="ep-row-num">Ep. 03</div>
                     <div class="ep-row-content">
                       <div class="ep-row-title">
-                        The myth of the <em>natural mother</em>
+                        The <em>Greatest Gift</em>
                       </div>
-                      <div class="ep-row-meta">44 min · Identity</div>
+                      <div class="ep-row-meta">Gratitude</div>
                     </div>
                     <div class="ep-row-play">
                       <svg
@@ -1721,9 +1769,9 @@
                     <div class="ep-row-num">Ep. 02</div>
                     <div class="ep-row-content">
                       <div class="ep-row-title">
-                        Falling in love, <em>slowly</em>
+                        Shredding the <em>Schedule</em>
                       </div>
-                      <div class="ep-row-meta">35 min · Bonding</div>
+                      <div class="ep-row-meta">Chaos &amp; Flow</div>
                     </div>
                     <div class="ep-row-play">
                       <svg
@@ -1745,9 +1793,33 @@
                     <div class="ep-row-num">Ep. 01</div>
                     <div class="ep-row-content">
                       <div class="ep-row-title">
-                        Why I started <em>this podcast</em>
+                        The Fog and <em>the Tea</em>
                       </div>
-                      <div class="ep-row-meta">22 min · Pilot</div>
+                      <div class="ep-row-meta">Pilot</div>
+                    </div>
+                    <div class="ep-row-play">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </a>
+
+                  <a
+                    class="ep-row"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    ><!-- TODO: Trailer Spotify URL -->
+                    <div class="ep-row-num">Trailer</div>
+                    <div class="ep-row-content">
+                      <div class="ep-row-title">
+                        Welcome to <em>the Chaos</em>
+                      </div>
+                      <div class="ep-row-meta">Intro</div>
                     </div>
                     <div class="ep-row-play">
                       <svg
@@ -1903,8 +1975,8 @@
           <div class="episodes-scroll fade-up-4">
             <div class="episode-card liquid-glass-strong">
               <div class="ep-number">Ep. 12 · Latest</div>
-              <div class="ep-title">When you grieve your <em>old self</em></div>
-              <div class="ep-meta">38 min · Matrescence</div>
+              <div class="ep-title">The Pause of the <em>Old Self</em></div>
+              <div class="ep-meta">Matrescence</div>
               <div class="ep-play">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -1917,8 +1989,8 @@
             </div>
             <div class="episode-card liquid-glass-strong">
               <div class="ep-number">Ep. 11</div>
-              <div class="ep-title">The <em>invisible load</em> is real</div>
-              <div class="ep-meta">42 min · Relationships</div>
+              <div class="ep-title">The Six <em>Percent Rule</em></div>
+              <div class="ep-meta">Relationships</div>
               <div class="ep-play">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -1931,8 +2003,8 @@
             </div>
             <div class="episode-card liquid-glass-strong">
               <div class="ep-number">Ep. 10</div>
-              <div class="ep-title">Sleep, <em>surrender</em>, survive</div>
-              <div class="ep-meta">31 min · First Year</div>
+              <div class="ep-title">Surrendering to <em>the Night</em></div>
+              <div class="ep-meta">First Year</div>
               <div class="ep-play">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -1945,8 +2017,8 @@
             </div>
             <div class="episode-card liquid-glass-strong">
               <div class="ep-number">Ep. 09</div>
-              <div class="ep-title">Asking for help <em>without shame</em></div>
-              <div class="ep-meta">45 min · Mental Health</div>
+              <div class="ep-title">The Myth of <em>Doing It All</em></div>
+              <div class="ep-meta">Mental Health</div>
               <div class="ep-play">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
