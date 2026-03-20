@@ -2415,24 +2415,34 @@
       const episodesTrigger = document.getElementById("episodesTrigger");
       let isFlipping = false;
 
+      function updateEpisodesTrigger(flipped) {
+        const h5 = episodesTrigger.querySelector("h5");
+        const p  = episodesTrigger.querySelector("p");
+        if (flipped) {
+          h5.textContent = "Back to Home";
+          p.textContent  = "Return to the main view";
+        } else {
+          h5.textContent = "Podcast Episodes";
+          p.textContent  = "52+ episodes of honest, unfiltered motherhood";
+        }
+      }
+
       episodesTrigger.addEventListener("click", () => {
         if (isFlipping) return;
-        if (isMobile()) {
-          // Slide to left panel first, then flip once panel lands
-          setPanel("left");
-          setTimeout(() => {
-            isFlipping = true;
-            leftFlipCard.classList.add("flipped");
-            setTimeout(() => {
-              isFlipping = false;
-            }, 750);
-          }, 300);
-        } else {
+
+        function doFlip() {
           isFlipping = true;
           leftFlipCard.classList.toggle("flipped");
-          setTimeout(() => {
-            isFlipping = false;
-          }, 750);
+          updateEpisodesTrigger(leftFlipCard.classList.contains("flipped"));
+          setTimeout(() => { isFlipping = false; }, 750);
+        }
+
+        if (isMobile()) {
+          // Always slide to left panel first so user sees the flip
+          setPanel("left");
+          setTimeout(doFlip, 300);
+        } else {
+          doFlip();
         }
       });
 
