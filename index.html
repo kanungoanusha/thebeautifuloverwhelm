@@ -1624,8 +1624,9 @@
 
                   <!-- SPOTIFY CTA -->
                   <a
-                    href="https://open.spotify.com"
+                    href="https://open.spotify.com/show/49s6MVI4JWhF9cZmtr1zs9?si=b2ddf264b59f4fd6"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="spotify-cta fade-up-4"
                   >
                     <div class="spotify-logo-wrap">
@@ -2370,13 +2371,13 @@
       swipe to explore
     </div>
     <nav class="mobile-nav" id="mobileNav" aria-label="Section navigation">
-      <button class="mobile-tab active" id="tabHome" aria-label="Home">
+      <button class="mobile-tab" id="tabHome" aria-label="Home">
         <span class="mobile-tab-icon">🌸</span>
         <span>Home</span>
         <span class="mobile-tab-dot"></span>
       </button>
       <button
-        class="mobile-tab"
+        class="mobile-tab active"
         id="tabDiscover"
         aria-label="Community &amp; Episodes"
       >
@@ -2400,6 +2401,10 @@
       // ── Mobile panel helper (used by episode trigger below) ──
       function isMobile() {
         return window.innerWidth < 1024;
+      }
+      // Default to Discover (right panel) on mobile
+      if (isMobile()) {
+        document.querySelector(".scene").classList.add("panel-right");
       }
       function setPanel(panel) {
         if (!isMobile()) return;
